@@ -410,15 +410,7 @@ export default function CartCheckout({ cart, user, onUpdateQuantity, onRemoveIte
                       boxShadow: "0 8px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(223,183,92,0.2)" }}>
                       <div style={{ width: 168, height: 168, position: "relative",
                         display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
-                        <svg viewBox="0 0 100 100" style={{ width: "100%", height: "100%", fill: "#111" }}>
-                          <path d="M0 0h30v30H0zm5 5v20h20V5zm5 5h10v10H10zM70 0h30v30H70zm5 5v20h20V5zm5 5h10v10H80zM0 70h30v30H0zm5 5v20h20V75zm5 5h10v10H10z" />
-                          <path d="M40 0h10v10H40zm20 0h10v10H60zm0 20h10v10H60zm-20 10h10v10H40zm-10 10h10v10H30zm20 0h10v10H50zm10 0h10v10H60zm30 10h10v10H90zm-10 10h10v10H80zm-20 10h10v10H60zm10 0h10v10H70zm-30 10h10v10H40zm-10 10h10v10H30zm20 0h10v10H50z" />
-                          <rect x="38" y="38" width="24" height="24" rx="3" fill="white" stroke="#dfb75c" strokeWidth="2.5" />
-                          <circle cx="50" cy="50" r="5" fill="#dfb75c" />
-                        </svg>
-                        <p style={{ fontSize: 7, fontWeight: 700, color: "#888",
-                          fontFamily: "'Space Mono', monospace", marginTop: 4,
-                          textTransform: "uppercase", letterSpacing: "0.08em" }}>MoonSlice Pizza</p>
+                        <Image src="/qris_logo.png" alt="QRIS Code" width={168} height={168} style={{ objectFit: "contain" }} />
                       </div>
                     </div>
 

@@ -62,6 +62,24 @@ const PIZZAS: Pizza[] = [
     coord: "99.0° L · 00.1° T", nebulaClass: "glow-nebula-purple",
     nebulaAccent: "rgba(142,68,173,0.28)", origin: "Singularitas Lubang Hitam", mass: 510, rating: 5.0, soldCount: 788,
   },
+  {
+    id: "nebula-carbonara", name: "Nebula Carbonara", price: 92000,
+    description: "Saus alfredo krim nebula, potongan dada ayam asap kosmis, jamur portobello, dan limpahan mozzarella premium.",
+    tag: "Terbaru", tagStyle: "cream", spicy: false, veg: false,
+    image: "/pizza-carbonara.png",
+    macros: [{ label: "KALORI", val: "880 kkal", pct: 73 }, { label: "PROTEIN", val: "38g", pct: 64 }, { label: "LEMAK", val: "36g", pct: 55 }],
+    coord: "42.3° L · 77.5° T", nebulaClass: "glow-nebula-purple",
+    nebulaAccent: "rgba(142,68,173,0.28)", origin: "Stasiun Orbit Alpha-9", mass: 460, rating: 4.9, soldCount: 412,
+  },
+  {
+    id: "solar-flare-spicy", name: "Solar Flare Spicy", price: 88000,
+    description: "Pepperoni sapi premium, sosis chorizo pedas, cabai jalapeno orbit, dibalut madu cabai lava pedas membara.",
+    tag: "Pedas Dahsyat", tagStyle: "cream", spicy: true, veg: false,
+    image: "/pizza-spicy.png",
+    macros: [{ label: "KALORI", val: "960 kkal", pct: 80 }, { label: "PROTEIN", val: "44g", pct: 73 }, { label: "LEMAK", val: "40g", pct: 62 }],
+    coord: "03.5° L · 121.8° T", nebulaClass: "glow-nebula-purple",
+    nebulaAccent: "rgba(142,68,173,0.28)", origin: "Sisi Dekat Matahari", mass: 490, rating: 4.8, soldCount: 829,
+  },
 ];
 
 const TAG_STYLES: Record<string, { bg: string; border: string; color: string }> = {

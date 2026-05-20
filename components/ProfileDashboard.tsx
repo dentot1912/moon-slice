@@ -58,22 +58,6 @@ export default function ProfileDashboard({ user, onLogout, onSelectSection }: Pr
     setAddingAddr(false);
   };
 
-  /* ── Not logged in ── */
-  if (!user) return (
-    <div style={{ minHeight: "60vh", display: "flex", flexDirection: "column",
-      alignItems: "center", justifyContent: "center", gap: 20, textAlign: "center", padding: 40 }}>
-      <div style={{ width: 88, height: 88, borderRadius: "50%",
-        background: "rgba(223,183,92,0.08)", border: `1px solid ${G.border}`,
-        display: "flex", alignItems: "center", justifyContent: "center" }}>
-        <User size={36} color="rgba(223,183,92,0.4)" />
-      </div>
-      <h2 className="font-display" style={{ fontSize: 36, color: G.cream }}>Belum Masuk</h2>
-      <p style={{ color: G.dim, fontSize: 14, maxWidth: 280, lineHeight: 1.6 }}>
-        Silakan masuk untuk mengakses profil dan riwayat pesanan kosmik Anda.
-      </p>
-    </div>
-  );
-
   return (
     <div className="pizza-bg font-body" style={{ minHeight: "100vh", color: G.cream, paddingBottom: 100 }}>
       <div style={{ maxWidth: 1100, margin: "0 auto", padding: "60px 24px 0" }}>
@@ -85,7 +69,7 @@ export default function ProfileDashboard({ user, onLogout, onSelectSection }: Pr
           </div>
           <h1 className="font-display glow-text-lava"
             style={{ fontSize: "clamp(48px,7vw,80px)", lineHeight: 0.88, color: G.cream }}>
-            PROFIL<br /><span className="text-lava">ASTRONOT</span>
+            PROFIL<br /><span className="text-lava">PENGGUNA</span>
           </h1>
         </div>
 
@@ -126,11 +110,11 @@ export default function ProfileDashboard({ user, onLogout, onSelectSection }: Pr
                 {/* Name */}
                 <div style={{ textAlign: "center" }}>
                   <h2 className="font-display" style={{ fontSize: 22, color: G.cream }}>
-                    {user.name}
+                    User
                   </h2>
                   <p style={{ fontSize: 11, color: "rgba(244,237,227,0.3)",
                     fontFamily: "'Space Mono', monospace", marginTop: 4 }}>
-                    {user.email}
+                    user@gmail.com
                   </p>
                   <div style={{ display: "inline-flex", alignItems: "center", gap: 6,
                     marginTop: 10, padding: "5px 14px", borderRadius: 9999,
