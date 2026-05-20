@@ -18,8 +18,6 @@ interface LandingPageProps {
   onAddToCart: (p: { id: string; name: string; price: number; image: string }, toppings: string[], price: number) => void;
 }
 
-
-
 const featuredPizzas = [
   {
     id: "supernova-cheese",
