@@ -47,7 +47,7 @@ export interface CartPizza {
 export default function Home() {
   const [user, setUser] = useState<UserProfile | null>(null);
   const [cart, setCart] = useState<CartItem[]>([]);
-  const [activeSection, setActiveSection] = useState("menu");
+  const [activeSection, setActiveSection] = useState("delivery");
   const [activeOrder, setActiveOrder] = useState<OrderData | null>(null);
   const [loginOpen, setLoginOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
