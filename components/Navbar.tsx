@@ -42,7 +42,7 @@ export default function Navbar({ user, cartCount, onOpenCart, onOpenLogin, activ
     <header style={navStyle}>
       <div style={{ maxWidth: 1280, margin: "0 auto", padding: "14px 24px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         {/* Logo */}
-        <button onClick={() => setActiveSection("home")} style={logoStyle}>
+        <button onClick={() => setActiveSection("menu")} style={logoStyle}>
           <div style={{ width: 40, height: 40, borderRadius: "50%", overflow: "hidden", border: "2px solid rgba(223,183,92,0.4)", boxShadow: "0 0 16px rgba(223,183,92,0.2)", flexShrink: 0 }}>
             <Image src="/logo.jpeg" alt="MoonSlice" width={40} height={40} style={{ objectFit: "cover" }} />
           </div>
