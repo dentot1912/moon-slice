@@ -60,7 +60,7 @@ export default function ProfileDashboard({ user, onLogout, onSelectSection }: Pr
 
   return (
     <div className="pizza-bg font-body" style={{ minHeight: "100vh", color: G.cream, paddingBottom: 100 }}>
-      <div style={{ maxWidth: 1100, margin: "0 auto", padding: "60px 24px 0" }}>
+      <div className="profile-wrapper" style={{ maxWidth: 1100, margin: "0 auto", padding: "60px 24px 0" }}>
 
         {/* ── Page header ── */}
         <div style={{ marginBottom: 40 }}>
@@ -224,7 +224,7 @@ export default function ProfileDashboard({ user, onLogout, onSelectSection }: Pr
               <div className="lava-divider" />
 
               {addingAddr && (
-                <form onSubmit={handleAddAddress} style={{ display: "flex", gap: 8, marginBottom: 14 }}>
+                <form onSubmit={handleAddAddress} style={{ display: "flex", gap: 8, marginBottom: 14 }} className="address-form">
                   <div style={{ flex: 1, position: "relative" }}>
                     <MapPin size={13} style={{ position: "absolute", left: 12, top: "50%",
                       transform: "translateY(-50%)", color: "rgba(223,183,92,0.4)", pointerEvents: "none" }} />
@@ -288,6 +288,7 @@ export default function ProfileDashboard({ user, onLogout, onSelectSection }: Pr
                     borderRadius: 16, background: G.crust, border: `1px solid ${G.borderFaint}`,
                     transition: "all 0.25s", cursor: "default",
                   }}
+                    className="order-row"
                     onMouseEnter={e => { e.currentTarget.style.borderColor = G.border; e.currentTarget.style.background = "rgba(26,20,16,0.95)"; }}
                     onMouseLeave={e => { e.currentTarget.style.borderColor = G.borderFaint; e.currentTarget.style.background = G.crust; }}
                   >
@@ -308,7 +309,8 @@ export default function ProfileDashboard({ user, onLogout, onSelectSection }: Pr
                           color: "rgba(244,237,227,0.25)" }}>{order.date}</span>
                       </div>
                       <p style={{ fontSize: 13, color: "rgba(244,237,227,0.6)",
-                        whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                        whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}
+                        className="order-items-text">
                         {order.items}
                       </p>
                       <div style={{ display: "flex", alignItems: "center", gap: 5, marginTop: 4 }}>
@@ -321,7 +323,7 @@ export default function ProfileDashboard({ user, onLogout, onSelectSection }: Pr
                       </div>
                     </div>
 
-                    <div style={{ textAlign: "right", flexShrink: 0 }}>
+                    <div style={{ textAlign: "right", flexShrink: 0 }} className="order-price">
                       <p style={{ fontFamily: "'Space Mono', monospace", fontWeight: 700,
                         fontSize: 14, color: G.gold }}>
                         Rp {order.total.toLocaleString("id-ID")}
@@ -352,6 +354,45 @@ export default function ProfileDashboard({ user, onLogout, onSelectSection }: Pr
       <style>{`
         @media (max-width: 820px) {
           .profile-grid { grid-template-columns: 1fr !important; }
+          .profile-wrapper { padding: 30px 16px 0 !important; }
+        }
+        @media (max-width: 580px) {
+          .order-row {
+            flex-direction: column !important;
+            align-items: flex-start !important;
+            gap: 12px !important;
+            padding: 14px 16px !important;
+          }
+          .order-price {
+            text-align: left !important;
+            width: 100% !important;
+            border-top: 1px dashed rgba(244,237,227,0.1) !important;
+            padding-top: 12px !important;
+            margin-top: 4px !important;
+          }
+          .order-items-text {
+            white-space: normal !important;
+          }
+          .bento-card {
+            padding: 20px 16px !important;
+          }
+        }
+        @media (max-width: 480px) {
+          .address-form {
+            flex-wrap: wrap !important;
+          }
+          .address-form > div {
+            min-width: 100% !important;
+            margin-bottom: 4px !important;
+          }
+          .address-form > button {
+            flex: 1 !important;
+            padding: 12px !important;
+            height: 40px !important;
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+          }
         }
       `}</style>
     </div>

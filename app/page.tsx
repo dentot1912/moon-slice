@@ -146,7 +146,7 @@ export default function Home() {
           {/* Main 4-Column Terminal Grid */}
           <div className="footer-terminal-grid" style={{
             display: "grid",
-            gridTemplateColumns: "1.2fr 0.8fr 1fr 1fr",
+            gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
             gap: "48px",
             marginBottom: "60px"
           }}>
@@ -414,7 +414,7 @@ export default function Home() {
       {cartOpen && (
         <div style={{ position: "fixed", inset: 0, zIndex: 50 }}>
           <div onClick={() => setCartOpen(false)} style={{ position: "absolute", inset: 0, background: "rgba(0,0,0,0.65)", backdropFilter: "blur(8px)" }} />
-          <div style={{ position: "absolute", inset: 0, right: 0, left: "auto", width: 400, display: "flex", flexDirection: "column", background: "rgba(13,10,9,0.98)", borderLeft: "1px solid rgba(244,237,227,0.07)", boxShadow: "-20px 0 60px rgba(0,0,0,0.5)" }}>
+          <div style={{ position: "absolute", inset: 0, right: 0, left: "auto", width: "min(400px, 100vw)", display: "flex", flexDirection: "column", background: "rgba(13,10,9,0.98)", borderLeft: "1px solid rgba(244,237,227,0.07)", boxShadow: "-20px 0 60px rgba(0,0,0,0.5)" }}>
 
             {/* Top accent */}
             <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 2, background: "linear-gradient(90deg,transparent,rgba(223,183,92,0.5),transparent)" }} />

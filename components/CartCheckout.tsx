@@ -116,7 +116,7 @@ export default function CartCheckout({ cart, user, onUpdateQuantity, onRemoveIte
 
   return (
     <div className="pizza-bg font-body" style={{ minHeight: "100vh", color: G.cream, paddingBottom: 100 }}>
-      <div style={{ maxWidth: 1100, margin: "0 auto", padding: "60px 24px 0" }}>
+      <div className="checkout-container" style={{ maxWidth: 1100, margin: "0 auto", padding: "60px 24px 0" }}>
 
         {/* ── Page header ── */}
         <div style={{ marginBottom: 40 }}>
@@ -130,7 +130,7 @@ export default function CartCheckout({ cart, user, onUpdateQuantity, onRemoveIte
         </div>
 
         {/* ── Step indicator ── */}
-        <div style={{ display: "flex", alignItems: "center", gap: 0, marginBottom: 40,
+        <div className="checkout-steps" style={{ display: "flex", alignItems: "center", gap: 0, marginBottom: 40,
           background: G.panel, border: `1px solid ${G.borderFaint}`,
           borderRadius: 16, padding: "6px", width: "fit-content" }}>
           {STEPS.map((s, i) => {
@@ -147,13 +147,13 @@ export default function CartCheckout({ cart, user, onUpdateQuantity, onRemoveIte
                              : done  ? "rgba(223,183,92,0.1)" : "transparent",
                   color: active ? "#050505" : done ? G.gold : "rgba(244,237,227,0.3)",
                   boxShadow: active ? "0 0 18px rgba(223,183,92,0.35)" : "none",
-                }}>
+                }} className={`step-item ${active ? "active" : ""}`}>
                   <Icon size={14} />
-                  {s.label}
+                  <span className="step-label">{s.label}</span>
                   {done && <Check size={12} strokeWidth={3} />}
                 </div>
                 {i < 2 && (
-                  <ChevronRight size={14} style={{
+                  <ChevronRight size={14} className="step-arrow" style={{
                     color: done ? "rgba(223,183,92,0.4)" : "rgba(244,237,227,0.12)",
                     flexShrink: 0, margin: "0 2px",
                   }} />
@@ -192,74 +192,79 @@ export default function CartCheckout({ cart, user, onUpdateQuantity, onRemoveIte
                       border: `1px solid ${G.borderFaint}`,
                       transition: "border-color 0.25s",
                     }}
+                      className="cart-item-card"
                       onMouseEnter={e => (e.currentTarget.style.borderColor = G.border)}
                       onMouseLeave={e => (e.currentTarget.style.borderColor = G.borderFaint)}
                     >
-                      {/* Image */}
-                      <div style={{ width: 60, height: 60, borderRadius: 12, flexShrink: 0,
-                        background: "rgba(12,10,8,0.9)", border: `1px solid ${G.borderFaint}`,
-                        overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                        <Image src={item.image} alt={item.name} width={52} height={52}
-                          style={{ objectFit: "contain" }} />
-                      </div>
+                      <div className="cart-item-left" style={{ display: "flex", alignItems: "center", gap: 14, flex: 1, minWidth: 0 }}>
+                        {/* Image */}
+                        <div style={{ width: 60, height: 60, borderRadius: 12, flexShrink: 0,
+                          background: "rgba(12,10,8,0.9)", border: `1px solid ${G.borderFaint}`,
+                          overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                          <Image src={item.image} alt={item.name} width={52} height={52}
+                            style={{ objectFit: "contain" }} />
+                        </div>
 
-                      {/* Info */}
-                      <div style={{ flex: 1, minWidth: 0 }}>
-                        <p style={{ fontWeight: 600, fontSize: 14, color: G.cream,
-                          whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
-                          {item.name}
-                        </p>
-                        {item.toppings.length > 0 && (
-                          <p style={{ fontSize: 10, color: G.gold,
-                            fontFamily: "'Space Mono', monospace", marginTop: 2 }}>
-                            +{item.toppings.join(" · ")}
+                        {/* Info */}
+                        <div style={{ flex: 1, minWidth: 0 }}>
+                          <p style={{ fontWeight: 600, fontSize: 14, color: G.cream,
+                            whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                            {item.name}
                           </p>
-                        )}
-                        <p style={{ fontFamily: "'Space Mono', monospace", fontWeight: 700,
-                          fontSize: 15, color: G.gold, marginTop: 4 }}>
-                          Rp {(item.price * item.quantity).toLocaleString("id-ID")}
-                        </p>
+                          {item.toppings.length > 0 && (
+                            <p style={{ fontSize: 10, color: G.gold,
+                              fontFamily: "'Space Mono', monospace", marginTop: 2 }}>
+                              +{item.toppings.join(" · ")}
+                            </p>
+                          )}
+                          <p style={{ fontFamily: "'Space Mono', monospace", fontWeight: 700,
+                            fontSize: 15, color: G.gold, marginTop: 4 }}>
+                            Rp {(item.price * item.quantity).toLocaleString("id-ID")}
+                          </p>
+                        </div>
                       </div>
 
-                      {/* Qty control */}
-                      <div style={{ display: "flex", alignItems: "center", gap: 4,
-                        background: "rgba(8,6,5,0.8)", border: `1px solid ${G.borderFaint}`,
-                        borderRadius: 9999, padding: "3px 6px" }}>
-                        <button onClick={() => onUpdateQuantity(idx, -1)} style={{
-                          width: 28, height: 28, borderRadius: "50%", border: "none",
-                          background: "none", cursor: "pointer", color: "rgba(244,237,227,0.4)",
-                          fontSize: 18, fontWeight: 700, display: "flex",
-                          alignItems: "center", justifyContent: "center", transition: "color 0.2s",
-                        }}
-                          onMouseEnter={e => (e.currentTarget.style.color = G.cream)}
-                          onMouseLeave={e => (e.currentTarget.style.color = "rgba(244,237,227,0.4)")}
-                        >−</button>
-                        <span style={{ width: 22, textAlign: "center", fontSize: 14,
-                          fontFamily: "'Space Mono', monospace", color: G.cream, fontWeight: 700 }}>
-                          {item.quantity}
-                        </span>
-                        <button onClick={() => onUpdateQuantity(idx, 1)} style={{
-                          width: 28, height: 28, borderRadius: "50%", border: "none",
-                          background: "none", cursor: "pointer", color: "rgba(244,237,227,0.4)",
-                          fontSize: 18, fontWeight: 700, display: "flex",
-                          alignItems: "center", justifyContent: "center", transition: "color 0.2s",
-                        }}
-                          onMouseEnter={e => (e.currentTarget.style.color = G.cream)}
-                          onMouseLeave={e => (e.currentTarget.style.color = "rgba(244,237,227,0.4)")}
-                        >+</button>
-                      </div>
+                      <div className="cart-item-right" style={{ display: "flex", alignItems: "center", gap: 14, flexShrink: 0 }}>
+                        {/* Qty control */}
+                        <div style={{ display: "flex", alignItems: "center", gap: 4,
+                          background: "rgba(8,6,5,0.8)", border: `1px solid ${G.borderFaint}`,
+                          borderRadius: 9999, padding: "3px 6px" }}>
+                          <button onClick={() => onUpdateQuantity(idx, -1)} style={{
+                            width: 28, height: 28, borderRadius: "50%", border: "none",
+                            background: "none", cursor: "pointer", color: "rgba(244,237,227,0.4)",
+                            fontSize: 18, fontWeight: 700, display: "flex",
+                            alignItems: "center", justifyContent: "center", transition: "color 0.2s",
+                          }}
+                            onMouseEnter={e => (e.currentTarget.style.color = G.cream)}
+                            onMouseLeave={e => (e.currentTarget.style.color = "rgba(244,237,227,0.4)")}
+                          >−</button>
+                          <span style={{ width: 22, textAlign: "center", fontSize: 14,
+                            fontFamily: "'Space Mono', monospace", color: G.cream, fontWeight: 700 }}>
+                            {item.quantity}
+                          </span>
+                          <button onClick={() => onUpdateQuantity(idx, 1)} style={{
+                            width: 28, height: 28, borderRadius: "50%", border: "none",
+                            background: "none", cursor: "pointer", color: "rgba(244,237,227,0.4)",
+                            fontSize: 18, fontWeight: 700, display: "flex",
+                            alignItems: "center", justifyContent: "center", transition: "color 0.2s",
+                          }}
+                            onMouseEnter={e => (e.currentTarget.style.color = G.cream)}
+                            onMouseLeave={e => (e.currentTarget.style.color = "rgba(244,237,227,0.4)")}
+                          >+</button>
+                        </div>
 
-                      {/* Delete */}
-                      <button onClick={() => onRemoveItem(idx)} style={{
-                        background: "none", border: "none", cursor: "pointer",
-                        color: "rgba(192,57,43,0.4)", padding: 6, borderRadius: 8,
-                        transition: "color 0.2s, background 0.2s",
-                      }}
-                        onMouseEnter={e => { e.currentTarget.style.color = G.red; e.currentTarget.style.background = "rgba(192,57,43,0.08)"; }}
-                        onMouseLeave={e => { e.currentTarget.style.color = "rgba(192,57,43,0.4)"; e.currentTarget.style.background = "none"; }}
-                      >
-                        <Trash2 size={16} />
-                      </button>
+                        {/* Delete */}
+                        <button onClick={() => onRemoveItem(idx)} style={{
+                          background: "none", border: "none", cursor: "pointer",
+                          color: "rgba(192,57,43,0.4)", padding: 6, borderRadius: 8,
+                          transition: "color 0.2s, background 0.2s",
+                        }}
+                          onMouseEnter={e => { e.currentTarget.style.color = G.red; e.currentTarget.style.background = "rgba(192,57,43,0.08)"; }}
+                          onMouseLeave={e => { e.currentTarget.style.color = "rgba(192,57,43,0.4)"; e.currentTarget.style.background = "none"; }}
+                        >
+                          <Trash2 size={16} />
+                        </button>
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -281,7 +286,7 @@ export default function CartCheckout({ cart, user, onUpdateQuantity, onRemoveIte
                 <div className="lava-divider" />
 
                 {/* Delivery type toggle */}
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 20 }}>
+                <div className="delivery-toggle-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 20 }}>
                   {([
                     { id: "delivery", label: "Antar ke Lokasi", sub: "Rp 15.000", icon: Bike },
                     { id: "pickup",   label: "Ambil di Gerai",  sub: "Gratis",    icon: Building2 },
@@ -375,7 +380,7 @@ export default function CartCheckout({ cart, user, onUpdateQuantity, onRemoveIte
                 <div className="lava-divider" />
 
                 {/* Method tabs */}
-                <div style={{ display: "flex", gap: 8, marginBottom: 24,
+                <div className="payment-tabs" style={{ display: "flex", gap: 8, marginBottom: 24,
                   background: "rgba(18,14,12,0.7)", padding: 5, borderRadius: 14,
                   border: `1px solid ${G.borderFaint}` }}>
                   {([
@@ -447,12 +452,12 @@ export default function CartCheckout({ cart, user, onUpdateQuantity, onRemoveIte
                         textTransform: "uppercase", marginBottom: 10 }}>
                         Nomor Virtual Account {payMethod.toUpperCase()}
                       </p>
-                      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}>
-                        <span style={{ fontFamily: "'Space Mono', monospace", fontWeight: 700,
+                      <div className="va-row" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}>
+                        <span className="va-code" style={{ fontFamily: "'Space Mono', monospace", fontWeight: 700,
                           fontSize: 22, color: G.cream, letterSpacing: "0.08em" }}>
                           {payMethod === "bca" ? "4026 8923 1104" : "120 0040268 923"}
                         </span>
-                        <button onClick={copyVA} style={{
+                        <button onClick={copyVA} className="va-copy-btn" style={{
                           padding: "8px 14px", borderRadius: 10, cursor: "pointer",
                           border: `1px solid ${copied ? "rgba(45,186,106,0.4)" : G.border}`,
                           background: copied ? "rgba(45,186,106,0.1)" : "rgba(223,183,92,0.06)",
@@ -498,7 +503,7 @@ export default function CartCheckout({ cart, user, onUpdateQuantity, onRemoveIte
           </div>
 
           {/* ══════════ ORDER SUMMARY SIDEBAR ══════════ */}
-          <div style={{ position: "sticky", top: 100 }}>
+          <div className="checkout-sidebar" style={{ position: "sticky", top: 100 }}>
             <div className="bento-card" style={{ padding: 24 }}>
               {/* Header */}
               <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 16 }}>
@@ -600,8 +605,94 @@ export default function CartCheckout({ cart, user, onUpdateQuantity, onRemoveIte
       </div>
 
       <style>{`
+        .checkout-steps {
+          transition: all 0.3s ease;
+        }
+        .cart-item-card {
+          transition: all 0.25s ease;
+        }
         @media (max-width: 768px) {
-          .checkout-grid { grid-template-columns: 1fr !important; }
+          .checkout-grid {
+            grid-template-columns: 1fr !important;
+            gap: 20px !important;
+          }
+          .checkout-container {
+            padding: 30px 16px 0 !important;
+          }
+          .checkout-sidebar {
+            position: static !important;
+          }
+          .step-item:not(.active) .step-label {
+            display: none !important;
+          }
+          .step-item:not(.active) {
+            padding: 10px !important;
+          }
+        }
+        @media (max-width: 580px) {
+          .checkout-steps {
+            width: 100% !important;
+            display: flex !important;
+            justify-content: space-between !important;
+          }
+          .step-item {
+            flex: 1 !important;
+            justify-content: center !important;
+            padding: 10px 8px !important;
+          }
+          .step-arrow {
+            display: none !important;
+          }
+          .cart-item-card {
+            flex-direction: column !important;
+            align-items: stretch !important;
+            gap: 12px !important;
+            padding: 14px !important;
+          }
+          .cart-item-left {
+            width: 100% !important;
+          }
+          .cart-item-right {
+            width: 100% !important;
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            border-top: 1px dashed rgba(244, 237, 227, 0.08) !important;
+            padding-top: 10px !important;
+            margin-top: 4px !important;
+          }
+          .delivery-toggle-grid {
+            grid-template-columns: 1fr !important;
+            gap: 10px !important;
+          }
+          .payment-tabs {
+            flex-direction: column !important;
+            gap: 6px !important;
+          }
+          .payment-tabs button {
+            width: 100% !important;
+          }
+        }
+        @media (max-width: 480px) {
+          .checkout-container .bento-card {
+            padding: 20px 16px !important;
+          }
+          .va-row {
+            flex-direction: column !important;
+            align-items: stretch !important;
+            gap: 12px !important;
+            text-align: center !important;
+          }
+          .va-code {
+            font-size: 17px !important;
+            letter-spacing: 0.04em !important;
+            text-align: center !important;
+            display: block !important;
+          }
+          .va-copy-btn {
+            justify-content: center !important;
+            width: 100% !important;
+          }
         }
       `}</style>
     </div>

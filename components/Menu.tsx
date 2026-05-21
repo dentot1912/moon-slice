@@ -217,7 +217,7 @@ export default function Menu({ onAddToCart }: MenuProps) {
             <p className="font-display" style={{ fontSize: 22 }}>Tidak ada pizza ditemukan</p>
           </div>
         ) : (
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))", gap: 20 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 20 }}>
             {list.map(pizza => {
               const ts       = TAG_STYLES[pizza.tagStyle];
               const isHover  = hoveredId === pizza.id;
@@ -448,7 +448,8 @@ export default function Menu({ onAddToCart }: MenuProps) {
             border: "1px solid rgba(223,183,92,0.25)",
             boxShadow: "0 0 60px -10px rgba(223,183,92,0.2), 0 40px 80px -20px rgba(0,0,0,0.9)",
             animation: "scale-in 0.25s cubic-bezier(0.34,1.56,0.64,1)",
-            overflow: "hidden",
+            overflowY: "auto",
+            maxHeight: "90vh",
           }}>
             {/* Top accent */}
             <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 1,

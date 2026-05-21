@@ -65,7 +65,7 @@ export default function OrderTracker({ activeOrder, onOrderFinished }: OrderTrac
 
   return (
     <div className="min-h-screen site-bg font-body text-cream" style={{ color: "#f4ede3", overflow: "hidden" }}>
-      <div className="mx-auto max-w-6xl px-6 py-20" style={{ maxWidth: 1180, margin: "0 auto" }}>
+      <div className="mx-auto max-w-6xl px-6 py-20 tracker-wrapper" style={{ maxWidth: 1180, margin: "0 auto" }}>
         
         {/* Header telemetry deck */}
         <div style={{ marginBottom: "40px", display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexWrap: "wrap", gap: 20 }} className="tracker-header">
@@ -136,13 +136,13 @@ export default function OrderTracker({ activeOrder, onOrderFinished }: OrderTrac
                   pointerEvents: "none"
                 }} />
 
-                {/* Orbit Rings */}
-                <div style={{ position: "absolute", width: "180px", height: "180px", borderRadius: "50%", border: "1px dashed rgba(244, 237, 227, 0.05)" }} />
-                <div style={{ position: "absolute", width: "120px", height: "120px", borderRadius: "50%", border: "1px dashed rgba(223, 183, 92, 0.08)" }} />
-                <div style={{ position: "absolute", width: "60px", height: "60px", borderRadius: "50%", border: "1px solid rgba(244, 237, 227, 0.03)" }} />
+                <svg viewBox="0 0 400 220" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", pointerEvents: "none" }}>
+                  {/* Orbit Rings */}
+                  <circle cx="200" cy="110" r="90" fill="none" stroke="rgba(244, 237, 227, 0.05)" strokeDasharray="3 3" />
+                  <circle cx="200" cy="110" r="60" fill="none" stroke="rgba(223, 183, 92, 0.08)" strokeDasharray="3 3" />
+                  <circle cx="200" cy="110" r="30" fill="none" stroke="rgba(244, 237, 227, 0.03)" />
 
-                {/* Trajectory Parabolic Flight Path */}
-                <svg style={{ position: "absolute", inset: 0, width: "100%", height: "100%", pointerEvents: "none" }}>
+                  {/* Trajectory Parabolic Flight Path */}
                   <path
                     d="M 50,180 Q 200,60 350,180"
                     fill="none"
@@ -160,100 +160,44 @@ export default function OrderTracker({ activeOrder, onOrderFinished }: OrderTrac
                     strokeDashoffset={500 - (currentStep / (STEPS.length - 1)) * 500}
                     style={{ transition: "stroke-dashoffset 0.8s ease-in-out" }}
                   />
+
+                  {/* Stasiun Orbit (MoonSlice HQ) */}
+                  <g>
+                    <circle cx="50" cy="180" r="16" fill="rgba(223, 183, 92, 0.15)" stroke="#dfb75c" strokeWidth="1.5" style={{ filter: "drop-shadow(0 0 4px rgba(223,183,92,0.3))" }} />
+                    <text x="50" y="184" fontSize="13" textAnchor="middle" dominantBaseline="middle">🏪</text>
+                    <text x="50" y="206" fontSize="7" fontFamily="'Space Mono', monospace" fill="rgba(244,237,227,0.4)" textAnchor="middle">MOON_DOCK</text>
+                  </g>
+
+                  {/* Landing Coordinates (Astronot Base) */}
+                  <g>
+                    <circle cx="350" cy="180" r="16" fill="rgba(45, 186, 106, 0.15)" stroke="#2dba6a" strokeWidth="1.5" style={{ filter: "drop-shadow(0 0 4px rgba(45,186,106,0.3))" }} />
+                    <text x="350" y="184" fontSize="13" textAnchor="middle" dominantBaseline="middle">🏠</text>
+                    <text x="350" y="206" fontSize="7" fontFamily="'Space Mono', monospace" fill="rgba(244,237,227,0.4)" textAnchor="middle">BASE_CAMP</text>
+                  </g>
+
+                  {/* Orbit Spacecraft pod (Rocket) */}
+                  {(() => {
+                    const pct = currentStep / (STEPS.length - 1);
+                    const t = pct;
+                    const rx = (1-t)*(1-t)*50 + 2*(1-t)*t*200 + t*t*350; 
+                    const ry = (1-t)*(1-t)*180 + 2*(1-t)*t*60 + t*t*180;
+                    
+                    return (
+                      <g style={{ transition: "all 0.8s ease-in-out" }}>
+                        <circle cx={rx} cy={ry} r="16" fill="rgba(223, 183, 92, 0.25)" stroke="#dfb75c" strokeWidth="1.5" style={{ filter: "drop-shadow(0 0 6px rgba(223,183,92,0.6))" }} />
+                        <text x={rx} y={ry + 4} fontSize="14" textAnchor="middle" dominantBaseline="middle">🚀</text>
+                      </g>
+                    );
+                  })()}
+
+                  {/* Active radar ping at landing base when rocket arrives */}
+                  {currentStep === STEPS.length - 1 && (
+                    <circle cx="350" cy="180" r="16" fill="none" stroke="#2dba6a" strokeWidth="2" opacity="0.8">
+                      <animate attributeName="r" values="16;36" dur="2s" repeatCount="indefinite" />
+                      <animate attributeName="opacity" values="0.8;0" dur="2s" repeatCount="indefinite" />
+                    </circle>
+                  )}
                 </svg>
-
-                {/* Stasiun Orbit (MoonSlice HQ) */}
-                <div style={{
-                  position: "absolute",
-                  left: "32px",
-                  bottom: "24px",
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center"
-                }}>
-                  <div style={{
-                    width: "32px",
-                    height: "32px",
-                    borderRadius: "50%",
-                    background: "rgba(223, 183, 92, 0.15)",
-                    border: "1.5px solid #dfb75c",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    fontSize: "14px",
-                    boxShadow: "0 0 10px rgba(223, 183, 92, 0.3)"
-                  }}>🏪</div>
-                  <span style={{ fontSize: "7px", fontFamily: "'Space Mono', monospace", color: "rgba(244,237,227,0.4)", marginTop: "4px" }}>MOON_DOCK</span>
-                </div>
-
-                {/* Landing Coordinates (Astronot Base) */}
-                <div style={{
-                  position: "absolute",
-                  right: "32px",
-                  bottom: "24px",
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center"
-                }}>
-                  <div style={{
-                    width: "32px",
-                    height: "32px",
-                    borderRadius: "50%",
-                    background: "rgba(45, 186, 106, 0.15)",
-                    border: "1.5px solid #2dba6a",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    fontSize: "14px",
-                    boxShadow: "0 0 10px rgba(45, 186, 106, 0.3)"
-                  }}>🏠</div>
-                  <span style={{ fontSize: "7px", fontFamily: "'Space Mono', monospace", color: "rgba(244,237,227,0.4)", marginTop: "4px" }}>BASE_CAMP</span>
-                </div>
-
-                {/* Orbit Spacecraft pod (Rocket / Scooter) */}
-                {(() => {
-                  const pct = currentStep / (STEPS.length - 1);
-                  // Calculate coordinates along quadratic bezier curve: B(t) = (1-t)^2 * P0 + 2*(1-t)*t*P1 + t^2 * P2
-                  const t = pct;
-                  const x = (1-t)*(1-t)*50 + 2*(1-t)*t*200 + t*t*350 - 16; 
-                  const y = (1-t)*(1-t)*180 + 2*(1-t)*t*60 + t*t*180 - 16;
-                  
-                  return (
-                    <div style={{
-                      position: "absolute",
-                      left: `${x}px`,
-                      top: `${y}px`,
-                      width: "32px",
-                      height: "32px",
-                      borderRadius: "50%",
-                      background: "rgba(223, 183, 92, 0.25)",
-                      border: "1.5px solid #dfb75c",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      fontSize: "16px",
-                      boxShadow: "0 0 15px rgba(223, 183, 92, 0.6)",
-                      transition: "all 0.8s ease-in-out",
-                      zIndex: 30
-                    }}>
-                      🚀
-                    </div>
-                  );
-                })()}
-
-                {/* Active radar ping at landing base when rocket arrives */}
-                {currentStep === STEPS.length - 1 && (
-                  <div className="radar-ping" style={{
-                    position: "absolute",
-                    right: "32px",
-                    bottom: "24px",
-                    width: "32px",
-                    height: "32px",
-                    borderRadius: "50%",
-                    border: "2px solid #2dba6a",
-                    pointerEvents: "none"
-                  }} />
-                )}
               </div>
 
               {/* Status details bar */}
@@ -531,18 +475,11 @@ export default function OrderTracker({ activeOrder, onOrderFinished }: OrderTrac
         @keyframes radar-sweep {
           to { transform: rotate(360deg); }
         }
-        @keyframes radar-ping {
-          0% { transform: scale(0.85); opacity: 0; }
-          50% { opacity: 0.6; }
-          100% { transform: scale(1.3); opacity: 0; }
-        }
         .radar-sweeper {
           animation: radar-sweep 6s linear infinite;
         }
-        .radar-ping {
-          animation: radar-ping 2s ease-out infinite;
-        }
         @media (max-width: 820px) {
+          .tracker-wrapper { padding: 32px 16px !important; }
           .tracker-header { flex-direction: column !important; align-items: flex-start !important; gap: 16px !important; }
           .telemetry-log { text-align: left !important; width: 100% !important; }
           .tracker-grid { grid-template-columns: 1fr !important; gap: 24px !important; }

@@ -173,13 +173,13 @@ export default function LandingPage({ onOrderNow, onOpenLogin, user, onAddToCart
 
         <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 24px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 48, alignItems: "center", width: "100%", position: "relative", zIndex: 10 }} className="hero-grid">
           {/* Left Hero Column */}
-          <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-            <span className="tag tag-lava animate-pulse" style={{ alignSelf: "flex-start", gap: 8, padding: "6px 14px" }}>
+          <div className="hero-text-col" style={{ display: "flex", flexDirection: "column", gap: 24 }}>
+            <span className="tag tag-lava animate-pulse hero-status-tag" style={{ alignSelf: "flex-start", gap: 8, padding: "6px 14px" }}>
               <Radio size={12} className="glow-text-lava" /> RANSUM KOSMIK TERENKRAPSI AKTIF
             </span>
 
             <div>
-              <h1 className="font-display glow-text-lava" style={{ fontSize: "clamp(56px, 7vw, 92px)", color: "#f4ede3", lineHeight: 0.9 }}>
+              <h1 className="font-display glow-text-lava" style={{ fontSize: "clamp(32px, 7.5vw, 76px)", color: "#f4ede3", lineHeight: 0.9 }}>
                 PIZZA<br />
                 <span className="text-lava">KOSMIS</span><br />
                 TERBAIK DI ALAM SEMESTA
@@ -190,7 +190,7 @@ export default function LandingPage({ onOrderNow, onOpenLogin, user, onAddToCart
               Adonan difermentasikan dalam gravitasi mikro di orbit stasiun antariksa MoonSlice, lalu dipanggang dengan reaktor panas fusi bintang supernova untuk kelezatan kosmik tak tertandingi!
             </p>
 
-            <div style={{ display: "flex", gap: 14, flexWrap: "wrap", paddingTop: 8 }}>
+            <div className="hero-btn-container" style={{ display: "flex", gap: 14, flexWrap: "wrap", paddingTop: 8 }}>
               <button onClick={onOrderNow} className="btn-primary pulse-glow-lava" style={{ padding: "16px 36px", fontSize: 15 }}>
                 <Flame size={18} /> Explore
               </button>
@@ -297,7 +297,7 @@ export default function LandingPage({ onOrderNow, onOpenLogin, user, onAddToCart
                   position: "relative",
                 }} id="hologram-console">
                   {/* Left Column: Holographic Projection Pod */}
-                  <div style={{
+                  <div className="hologram-projection-pod" style={{
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
@@ -355,7 +355,7 @@ export default function LandingPage({ onOrderNow, onOpenLogin, user, onAddToCart
                     }} />
 
                     {/* Central Floating Pizza Image */}
-                    <div className="float" style={{
+                    <div className="float pizza-float-container" style={{
                       width: 240,
                       height: 240,
                       position: "relative",
@@ -443,18 +443,18 @@ export default function LandingPage({ onOrderNow, onOpenLogin, user, onAddToCart
                     </div>
 
                     {/* Call-to-Action Console Buttons */}
-                    <div style={{ display: "flex", alignItems: "center", gap: 16, marginTop: 8 }}>
-                      <div style={{ flex: 1 }}>
+                    <div className="console-cta-container" style={{ display: "flex", alignItems: "center", gap: 16, marginTop: 8 }}>
+                      <div className="console-price-block" style={{ flex: 1 }}>
                         <span style={{ display: "block", fontSize: 8, fontFamily: "'Space Mono', monospace", color: "rgba(244, 237, 227, 0.3)" }}>HARGA STANDAR</span>
                         <span style={{ fontFamily: "'Space Mono', monospace", fontWeight: 700, fontSize: 24, color: "#dfb75c" }}>
                           Rp {activePizza.price.toLocaleString("id-ID")}
                         </span>
                       </div>
 
-                      <div style={{ display: "flex", gap: 10 }}>
+                      <div className="console-btn-group" style={{ display: "flex", gap: 10 }}>
                         <button
                           onClick={onOrderNow}
-                          className="btn-outline-cream"
+                          className="btn-outline-cream console-btn"
                           style={{
                             padding: "12px 20px",
                             borderRadius: 9999,
@@ -476,7 +476,7 @@ export default function LandingPage({ onOrderNow, onOpenLogin, user, onAddToCart
                               image: activePizza.image,
                             }, [], activePizza.price);
                           }}
-                          className="btn-primary"
+                          className="btn-primary console-btn"
                           style={{
                             padding: "12px 28px",
                             borderRadius: 9999,
@@ -677,20 +677,20 @@ export default function LandingPage({ onOrderNow, onOpenLogin, user, onAddToCart
       </section>
 
       {/* ══════════════ MISSION LAUNCH CTA BANNER ══════════════ */}
-      <section style={{ padding: "120px 24px", position: "relative", overflow: "hidden" }}>
+      <section className="cta-banner" style={{ padding: "120px 24px", position: "relative", overflow: "hidden" }}>
         {/* Hyperspace backdrop lights */}
         <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg, rgba(223,183,92,0.14) 0%, rgba(223,183,92,0.05) 50%, transparent 100%)", pointerEvents: "none" }} />
 
         <div style={{ maxWidth: 880, margin: "0 auto", textAlign: "center", position: "relative", zIndex: 10 }}>
-          <h2 className="font-display glow-text-lava" style={{ fontSize: "clamp(48px, 8vw, 80px)", color: "#f4ede3", lineHeight: 0.9, marginBottom: 24 }}>
+          <h2 className="font-display glow-text-lava cta-title" style={{ fontSize: "clamp(48px, 8vw, 80px)", color: "#f4ede3", lineHeight: 0.9, marginBottom: 24 }}>
             SIAP MELUNCURKAN<br />
             <span className="text-lava">MISI RASA?</span>
           </h2>
-          <p style={{ color: "rgba(244,237,227,0.45)", fontSize: 15, marginBottom: 40, maxWidth: 500, margin: "0 auto 40px" }}>
+          <p className="cta-desc" style={{ color: "rgba(244,237,227,0.45)", fontSize: 15, marginBottom: 40, maxWidth: 500, margin: "0 auto 40px" }}>
             Gunakan kode peluncuran astronot baru <strong style={{ fontFamily: "'Space Mono', monospace", color: "#f5c842" }}>PIZZA20</strong> untuk mendapatkan diskon 20% di gerbang checkout.
           </p>
 
-          <button onClick={onOrderNow} className="btn-primary pulse-glow-lava" style={{ padding: "20px 52px", fontSize: 17, gap: 10 }}>
+          <button onClick={onOrderNow} className="btn-primary pulse-glow-lava cta-btn" style={{ padding: "20px 52px", fontSize: 17, gap: 10 }}>
             <Flame size={22} /> Luncurkan Pesanan Sekarang
           </button>
         </div>
@@ -707,14 +707,48 @@ export default function LandingPage({ onOrderNow, onOpenLogin, user, onAddToCart
         }
         @media (max-width: 820px) {
           .hero-grid { grid-template-columns: 1fr !important; gap: 40px !important; text-align: center; }
+          .hero-text-col { align-items: center !important; }
+          .hero-status-tag { align-self: center !important; }
+          .hero-btn-container { justify-content: center !important; }
           .hero-logo-container { margin-top: 20px; }
-          .hero-logo-container .orbit-ring-base { width: 340px !important; height: 340px !important; }
+          .hero-logo-container .orbit-ring-base { width: 320px !important; height: 320px !important; }
           .hero-logo-container .glow-ring { width: 190px !important; height: 190px !important; }
           .hero-logo-container .tag { font-size: 8px !important; padding: 6px 12px !important; }
           #interactive-pizza { grid-template-columns: 1fr !important; gap: 32px !important; padding: 24px !important; }
           #hologram-console { grid-template-columns: 1fr !important; gap: 32px !important; padding: 24px !important; }
           .selector-strip { grid-template-columns: 1fr !important; gap: 12px !important; }
           .featured-grid, .reviews-grid, .craftsmanship-grid { grid-template-columns: 1fr !important; }
+        }
+        @media (max-width: 640px) {
+          .hologram-projection-pod { min-height: 260px !important; }
+          .pizza-float-container { width: 180px !important; height: 180px !important; }
+          .console-cta-container { flex-direction: column !important; align-items: stretch !important; gap: 20px !important; text-align: center; }
+          .console-price-block { text-align: center !important; }
+          .console-btn-group { flex-direction: column !important; width: 100% !important; gap: 10px !important; }
+          .console-btn { width: 100% !important; display: block !important; text-align: center !important; }
+        }
+        @media (max-width: 580px) {
+          .cta-banner {
+            padding: 70px 16px !important;
+          }
+          .cta-title {
+            font-size: clamp(32px, 8.5vw, 64px) !important;
+            line-height: 0.95 !important;
+            margin-bottom: 18px !important;
+          }
+          .cta-desc {
+            font-size: 13px !important;
+            margin-bottom: 30px !important;
+            padding: 0 10px !important;
+          }
+          .cta-btn {
+            padding: 16px 36px !important;
+            font-size: 15px !important;
+            width: 100% !important;
+            max-width: 320px !important;
+            margin: 0 auto !important;
+            justify-content: center !important;
+          }
         }
       `}</style>
     </div>
